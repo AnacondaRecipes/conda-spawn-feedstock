@@ -11,36 +11,42 @@ source:
 
 build:
   number: 0
-  noarch: python
   script:
     - {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   host:
-    - python {{ python_min }}
+    - python
     - pip
     - hatchling >=1.12.2
     - hatch-vcs >=0.2.0
   run:
-    - python >={{ python_min }}
+    - python
     - conda >=23.9.0
     - pexpect
     - shellingham
 
 test:
   requires:
-    - python {{ python_min }}
+    - python
+    - pip
   imports:
     - conda_spawn
     - conda_spawn.main
   commands:
     - python -m conda spawn --help
+    - pip check
 
 about:
   home: https://github.com/conda-incubator/conda-spawn
   license: MIT AND BSD-3-Clause
+  license_family: Other
   license_file: LICENSE
   summary: Activate conda environments in new shell processes
+  description: |
+    conda-spawn provides a command for running shell commands in activated
+    conda environments without mutating the current shell session.
+  doc_url: https://github.com/conda-incubator/conda-spawn#readme
   dev_url: https://github.com/conda-incubator/conda-spawn
 
 extra:
